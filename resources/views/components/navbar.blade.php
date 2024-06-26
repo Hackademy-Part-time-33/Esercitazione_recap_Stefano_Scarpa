@@ -11,7 +11,7 @@
                                 <a class="text-white mx-2 nav-link" href="{{ route('login') }}"><i class="bi bi-person-circle"></i></a>
                             @else
                             <span class="text-white nav-link">Benvenuto, <span class="fw-bolder">{{ Auth::user()->name }}</span></span>
-                            <li class="nav-item"><a class="nav-link" href="{{route('homepage')}}">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{route('dashboard')}}">Dashboard</a></li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button class="text-danger mx-2 nav-link" type="submit">Logout</button>

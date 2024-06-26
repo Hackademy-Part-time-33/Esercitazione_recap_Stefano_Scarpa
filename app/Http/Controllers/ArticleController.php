@@ -13,7 +13,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $articles = Article::all();
+        return view('article.dashboard', compact('articles'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('article.create');
     }
 
     /**
@@ -29,7 +30,19 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        //
+        $path_image = '';
+        if ($request->hasFile('image')) {
+            $path_name = $request->file('image')->getClientOriginalName();
+            $path_image = $request->file('image')->storeAs('public/images', $path_name);
+        }
+
+        Article::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image' =>  $path_image,
+            'user_id' => auth()->user()->id
+        ]);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -37,7 +50,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('article.show', compact('article'));
     }
 
     /**
@@ -45,7 +58,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('article.edit', compact('article'));
     }
 
     /**
@@ -53,7 +66,20 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+        $path_image = $article->image;
+        if ($request->hasFile('image')) {
+            $file_name = $request->file('image')->getClientOriginalName();
+            $path_image = $request->file('image')->storeAs('public/images', $file_name);
+        };
+
+        $article->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image' => $path_image,
+        ]);
+
+        session()->flash('success', 'Articolo Modificato con successo');
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -61,6 +87,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        session()->flash('success', 'Articolo cancellato con successo');
+        return redirect()->route('dashboard');
     }
 }
