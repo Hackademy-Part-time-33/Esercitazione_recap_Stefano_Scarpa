@@ -13,4 +13,4 @@ Route::get('/contatti', [PageController::class, 'contact'])->name('contact');
 Route::get('/dashboard', [ArticleController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::resource('article', ArticleController::class);
-Route::resource('categorie', CategoryController::class);
+Route::resource('categories', CategoryController::class);

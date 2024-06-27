@@ -10,28 +10,27 @@ class Edit extends Component
 {
     public Category $category;
 
+    #[Validate('required', message: 'Inserisci la categoria')]
+    public $name = '';
 
-    #[Validate('required')]
-    public $name;
-    
     public function mount()
     {
         $this->name = $this->category->name;
+       
     }
 
-    public function update(){
-
+    public function update()
+    {
         $this->validate();
-
         $this->category->update([
             'name' => $this->name,
+            
         ]);
 
-        return redirect()->route('categorie.index');
+        return redirect()->route('categories.index');
     }
-
     public function render()
     {
-        return view('livewire.categories.edit');
+        return view('livewire.category.edit');
     }
 }

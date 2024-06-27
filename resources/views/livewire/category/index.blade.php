@@ -13,7 +13,7 @@
                         aria-label="Search">
                 </form>
                 <a href="{{route('dashboard')}}" class="btn btn-outline-dark me-md-4">Ritorna agli articoli</a>
-                <a href="{{route('categorie.create')}}" class="btn btn-outline-success me-md-4"><i class="bi bi-file-earmark-plus"></i> Crea nuova categoria</a>
+                <a href="{{route('categories.create')}}" class="btn btn-outline-success me-md-4"><i class="bi bi-file-earmark-plus"></i> Crea nuova categoria</a>
             </div>
             <table class="table border mt-2">
                 <thead>
@@ -25,19 +25,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($categories as $categorie)                        
+                @foreach ($categories as $category)                        
 
-                <tr>
-                    <th scope="row">#{{$categorie->id}}</th>
-                    <td>{{$categorie->name}}</td>
+                <tr wire:key="{{ $category->id }}">
+                    <th scope="row">#{{$category->id}}</th>
+                    <td>{{$category->name}}</td>
                     <td>
 
                         <div
                             class="d-grid gap-2 d-md-flex justify-content-md-end">
 
-                            <a href="{{route('categorie.edit', ['categorie' => $categorie])}}" class="btn text-black me-md-3"><i class="bi bi-pencil-square h4"></i></a>
+                            <a href="{{route('categories.edit', ['category' => $category])}}" class="btn text-black me-md-3"><i class="bi bi-pencil-square h4"></i></a>
 
-                            <a href="#" wire:click.prevent="destroy({{$categorie}})">
+                            <a href="#" wire:click.prevent="destroy({{$category}})">
                                 <i class="bi bi-trash-fill h4"></i>
                             </a>
                             

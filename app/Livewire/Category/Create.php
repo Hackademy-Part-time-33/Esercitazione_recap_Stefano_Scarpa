@@ -18,11 +18,11 @@ class Create extends Component
             'name' => $this->name,
         ]);
 
-        return redirect()->route('categorie.index');
+        return redirect()->route('categories.index');
     }
 
     public function render()
     {
-        return view('livewire.categories.create');
+        return view('livewire.category.create');
     }
 }

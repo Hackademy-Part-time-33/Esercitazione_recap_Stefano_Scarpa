@@ -10,7 +10,7 @@ class Index extends Component
     public function render()
     {
         $categories = Category::all();
-        return view('livewire.categories.index', ['categories' => $categories]);
+        return view('livewire.category.index', ['categories' => $categories]);
     }
 
     public function destroy(Category $category)
