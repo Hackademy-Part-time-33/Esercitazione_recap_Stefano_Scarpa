@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,3 +13,4 @@ Route::get('/contatti', [PageController::class, 'contact'])->name('contact');
 Route::get('/dashboard', [ArticleController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::resource('article', ArticleController::class);
+Route::resource('categorie', CategoryController::class);
