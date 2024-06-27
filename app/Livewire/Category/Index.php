@@ -12,4 +12,9 @@ class Index extends Component
         $categories = Category::all();
         return view('livewire.categories.index', ['categories' => $categories]);
     }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+    }
 }

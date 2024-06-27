@@ -14,6 +14,7 @@
                             type="search" placeholder="Cerca Articolo"
                             aria-label="Search">
                     </form>
+                    <a href="{{route('categorie.index')}}" class="btn btn-outline-dark me-md-4">Visualizza le categorie</a>
                     <a href="{{route('article.create')}}" class="btn btn-outline-success me-md-4"><i class="bi bi-file-earmark-plus"></i> Crea nuovo articolo</a>
                 </div>
                 <table class="table border mt-2">
