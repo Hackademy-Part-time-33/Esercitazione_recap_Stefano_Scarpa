@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
+use App\Models\Category;
 
 class ArticleController extends Controller
 {
@@ -22,7 +23,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('article.create');
+        $categories = Category::all();
+        return view('article.create', compact('categories'));
     }
 
     /**
@@ -36,12 +38,14 @@ class ArticleController extends Controller
             $path_image = $request->file('image')->storeAs('public/images', $path_name);
         }
 
-        Article::create([
+        $article = Article::create([
             'title' => $request->title,
             'body' => $request->body,
             'image' =>  $path_image,
             'user_id' => auth()->user()->id
         ]);
+
+        $article->categories()->attach($request->categories);
         return redirect()->route('dashboard');
     }
 
@@ -58,7 +62,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('article.edit', compact('article'));
+        $categories = Category::all();
+        return view('article.edit', compact('article', 'categories'));
     }
 
     /**
@@ -78,6 +83,7 @@ class ArticleController extends Controller
             'image' => $path_image,
         ]);
 
+        $article->categories()->sync($request->categories);
         session()->flash('success', 'Articolo Modificato con successo');
         return redirect()->route('dashboard');
     }
